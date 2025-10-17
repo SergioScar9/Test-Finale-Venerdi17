@@ -85,7 +85,7 @@ class Gadget : IProdotto
 }
 
 #endregion
-
+#region Factory
 static class ProductFactory
 {
     public static IProdotto Crea(string codice)
@@ -102,9 +102,9 @@ static class ProductFactory
         }
     }
 }
+#endregion
 
-
-
+#region  Decorator
 abstract class AddonProdotto : IProdotto
 {
     protected IProdotto prodotto;
@@ -154,8 +154,8 @@ class Incisione : AddonProdotto
     public override double PrezzoBase() { return prodotto.PrezzoBase() + 8.00; }
 }
 
-
-
+#endregion
+#region Varie strategie
 interface IPricingStrategy
 {
     double CalcolaPrezzo(double prezzoBase);
@@ -209,8 +209,8 @@ class DynamicPricing : IPricingStrategy
     }
     public string Nome() { return $"Dynamic (x{fattore})"; }
 }
-
-
+#endregion
+#region Observer e gestione ordini
 interface IObserverOrdine
 {
     void Aggiorna(string evento, Ordine ordine);
@@ -387,9 +387,9 @@ class GestoreOrdini
     }
 }
 
-
-
-class Program
+#endregion
+#region 
+class Programma
 {
     static void Main(string[] args)
     {
@@ -399,7 +399,7 @@ class Program
         GestoreOrdini gestore = new GestoreOrdini();
         Ordine ordineCorrente = null;
         bool continua = true;
-        
+
         while (continua)
         {
             Console.WriteLine("MENU PRINCIPALE");
@@ -414,7 +414,7 @@ class Program
             Console.WriteLine("9.  Visualizza log");
             Console.WriteLine("0 Esci");
 
-            
+
             if (ordineCorrente != null)
             {
                 Console.WriteLine($"Ordine corrente: {ordineCorrente.Id}");
@@ -423,18 +423,18 @@ class Program
             {
                 Console.WriteLine("Nessun ordine, crea un nuovo ordine!");
             }
-            
+
             Console.Write("\nScelta: ");
             string scelta = Console.ReadLine();
             Console.WriteLine();
-            
+
             switch (scelta)
             {
                 case "1":
                     ordineCorrente = gestore.CreaOrdine();
                     Console.WriteLine($"Ordine {ordineCorrente.Id} creato");
                     break;
-                    
+
                 case "2":
                     if (ordineCorrente == null)
                     {
@@ -443,7 +443,7 @@ class Program
                     }
                     AggiungiProdotto(ordineCorrente);
                     break;
-                    
+
                 case "3":
                     if (ordineCorrente == null || ordineCorrente.Prodotti.Count == 0)
                     {
@@ -452,7 +452,7 @@ class Program
                     }
                     ApplicaAddon(ordineCorrente);
                     break;
-                    
+
                 case "4":
                     if (ordineCorrente == null)
                     {
@@ -461,7 +461,7 @@ class Program
                     }
                     CambiaStrategia(ordineCorrente);
                     break;
-                    
+
                 case "5":
                     if (ordineCorrente == null)
                     {
@@ -470,7 +470,7 @@ class Program
                     }
                     ordineCorrente.MostraDettagli();
                     break;
-                    
+
                 case "6":
                     if (ordineCorrente == null)
                     {
@@ -480,29 +480,29 @@ class Program
                     ordineCorrente.Checkout();
                     ordineCorrente = null;
                     break;
-                    
+
                 case "7":
                     gestore.MostraTuttiOrdini();
                     break;
-                    
+
                 case "8":
                     ConfiguraSistema();
                     break;
-                    
+
                 case "9":
                     AppContext.Instance.MostraLog();
                     break;
-                    
+
                 case "0":
                     Console.WriteLine("Arrivederci");
                     continua = false;
                     break;
-                    
+
                 default:
                     Console.WriteLine("Scelta non valida!");
                     break;
             }
-            
+
             if (continua && scelta != "7" && scelta != "9")
             {
                 Console.WriteLine("\nPremi un tasto per continuare");
@@ -511,7 +511,7 @@ class Program
             }
         }
     }
-    
+
     static void AggiungiProdotto(Ordine ordine)
     {
 
@@ -521,10 +521,10 @@ class Program
         Console.WriteLine("3.  SKIN (€15.00)");
         Console.WriteLine("4. GADGET (€12.00)");
         Console.Write("Scelta: ");
-        
+
         string scelta = Console.ReadLine();
         string codice = "";
-        
+
         switch (scelta)
         {
             case "1": codice = "TSHIRT"; break;
@@ -535,12 +535,12 @@ class Program
                 Console.WriteLine("Prodotto non valido!");
                 return;
         }
-        
+
         IProdotto prodotto = ProductFactory.Crea(codice);
         ordine.AggiungiProdotto(prodotto);
         Console.WriteLine($"{prodotto.Descrizione()} aggiunto all'ordine!");
     }
-    
+
     static void ApplicaAddon(Ordine ordine)
     {
         Console.WriteLine("Seleziona il prodotto da personalizzare:");
@@ -549,7 +549,7 @@ class Program
             Console.WriteLine($"{i + 1}. {ordine.Prodotti[i].Descrizione()}");
         }
         Console.Write("Numero prodotto: ");
-        
+
         int indice;
         if (!int.TryParse(Console.ReadLine(), out indice) || indice < 1 || indice > ordine.Prodotti.Count)
         {
@@ -557,7 +557,7 @@ class Program
             return;
         }
         indice--;
-        
+
         Console.WriteLine("ADDON DISPONIBILI");
         Console.WriteLine("1. Stampa Fronte (+€5.00)");
         Console.WriteLine("2. Stampa Retro (+€5.00)");
@@ -565,10 +565,10 @@ class Program
         Console.WriteLine("4. Estensione Garanzia (+€10.00)");
         Console.WriteLine("5.  Incisione Personalizzata (+€8.00)");
         Console.Write("Scelta: ");
-        
+
         string scelta = Console.ReadLine();
         IProdotto prodotto = ordine.Prodotti[indice];
-        
+
         switch (scelta)
         {
             case "1":
@@ -590,11 +590,11 @@ class Program
                 Console.WriteLine("Addon non valido!");
                 return;
         }
-        
+
         ordine.Prodotti[indice] = prodotto;
         Console.WriteLine($"Addon applicato Nuovo prodotto: {prodotto.Descrizione()}");
     }
-    
+
     static void CambiaStrategia(Ordine ordine)
     {
 
@@ -604,10 +604,10 @@ class Program
         Console.WriteLine("3. Wholesale (sconto 35%, no IVA)");
         Console.WriteLine("4.  Dynamic (fattore personalizzato)");
         Console.Write("Scelta: ");
-        
+
         string scelta = Console.ReadLine();
         IPricingStrategy strategia = null;
-        
+
         switch (scelta)
         {
             case "1":
@@ -628,7 +628,7 @@ class Program
                 }
                 break;
         }
-        
+
         if (strategia != null)
         {
             ordine.CambiaStrategia(strategia);
@@ -639,16 +639,16 @@ class Program
             Console.WriteLine("Strategia non valida!");
         }
     }
-    
+
     static void ConfiguraSistema()
     {
         AppContext ctx = AppContext.Instance;
-        
+
         Console.WriteLine("CONFIGURAZIONE SISTEMA");
         Console.WriteLine($"Valuta corrente: {ctx.Valuta}");
         Console.WriteLine($"IVA corrente: {ctx.IVA * 100}%");
         Console.WriteLine($"Sconto base: {ctx.ScontoBase * 100}%");
-        
+
         Console.Write("Vuoi modificare le impostazioni? (s/n): ");
         if (Console.ReadLine().ToLower() == "s")
         {
@@ -656,19 +656,20 @@ class Program
             string val = Console.ReadLine();
             if (!string.IsNullOrEmpty(val))
                 ctx.Valuta = val;
-            
+
             Console.Write("Nuova IVA in % (lascia vuoto per non cambiare): ");
             string iva = Console.ReadLine();
             if (!string.IsNullOrEmpty(iva) && double.TryParse(iva, out double ivaVal))
                 ctx.IVA = ivaVal / 100.0;
-            
+
             Console.Write("Nuovo sconto base in % (lascia vuoto per non cambiare): ");
             string sconto = Console.ReadLine();
             if (!string.IsNullOrEmpty(sconto) && double.TryParse(sconto, out double scontoVal))
                 ctx.ScontoBase = scontoVal / 100.0;
-            
+
             Console.WriteLine("Configurazione aggiornata");
             ctx.AggiungiLog("Configurazione sistema modificata");
         }
     }
 }
+#endregion
