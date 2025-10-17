@@ -1,0 +1,14 @@
+C:\Users\sergi\Desktop\Test-Finale-Venerdi17\Test-Finale\bin\Debug\net9.0\Test-Finale.exe
+C:\Users\sergi\Desktop\Test-Finale-Venerdi17\Test-Finale\bin\Debug\net9.0\Test-Finale.deps.json
+C:\Users\sergi\Desktop\Test-Finale-Venerdi17\Test-Finale\bin\Debug\net9.0\Test-Finale.runtimeconfig.json
+C:\Users\sergi\Desktop\Test-Finale-Venerdi17\Test-Finale\bin\Debug\net9.0\Test-Finale.dll
+C:\Users\sergi\Desktop\Test-Finale-Venerdi17\Test-Finale\bin\Debug\net9.0\Test-Finale.pdb
+C:\Users\sergi\Desktop\Test-Finale-Venerdi17\Test-Finale\obj\Debug\net9.0\Test-Finale.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sergi\Desktop\Test-Finale-Venerdi17\Test-Finale\obj\Debug\net9.0\Test-Finale.AssemblyInfoInputs.cache
+C:\Users\sergi\Desktop\Test-Finale-Venerdi17\Test-Finale\obj\Debug\net9.0\Test-Finale.AssemblyInfo.cs
+C:\Users\sergi\Desktop\Test-Finale-Venerdi17\Test-Finale\obj\Debug\net9.0\Test-Finale.csproj.CoreCompileInputs.cache
+C:\Users\sergi\Desktop\Test-Finale-Venerdi17\Test-Finale\obj\Debug\net9.0\Test-Finale.dll
+C:\Users\sergi\Desktop\Test-Finale-Venerdi17\Test-Finale\obj\Debug\net9.0\refint\Test-Finale.dll
+C:\Users\sergi\Desktop\Test-Finale-Venerdi17\Test-Finale\obj\Debug\net9.0\Test-Finale.pdb
+C:\Users\sergi\Desktop\Test-Finale-Venerdi17\Test-Finale\obj\Debug\net9.0\Test-Finale.genruntimeconfig.cache
+C:\Users\sergi\Desktop\Test-Finale-Venerdi17\Test-Finale\obj\Debug\net9.0\ref\Test-Finale.dll
